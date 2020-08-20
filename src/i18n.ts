@@ -4,32 +4,38 @@ import Backend from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { format as dateFormat } from "date-fns";
 import { hu } from "date-fns/locale";
-import supportedLocales from "./supportedLocales";
+import supportedLocales, {
+  SupportedLocales,
+  FALLBACK_LANGUAGE,
+} from "./supportedLocales";
 
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    whitelist: ["hu"],
-    fallbackLng: "hu",
+    ns: ["common", "validation"],
+    supportedLngs: ["hu"],
+    fallbackLng: FALLBACK_LANGUAGE,
 
     interpolation: {
       escapeValue: false,
       format: (value, format, lng) => {
+        let language = supportedLocales[lng as SupportedLocales];
+
         if (format === "datetime") {
           return dateFormat(new Date(value), "Pp", {
-            locale: lng ? supportedLocales[lng] : hu,
+            locale: lng ? language : hu,
           });
         }
         if (format === "date") {
           return dateFormat(new Date(value), "P", {
-            locale: lng ? supportedLocales[lng] : hu,
+            locale: lng ? language : hu,
           });
         }
         if (format === "time") {
           return dateFormat(new Date(value), "p", {
-            locale: lng ? supportedLocales[lng] : hu,
+            locale: lng ? language : hu,
           });
         }
 

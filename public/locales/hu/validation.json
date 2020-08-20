@@ -1,0 +1,32 @@
+{
+  "required": "Kérjük, töltse ki ezt a mezőt!",
+  "requiredAll": "Kérjük, minden mezőt töltsen ki!",
+  "invalidFormat": "Kérjük, {{subject}} adjon meg.",
+  "maxLength": "Maximum {{length}} karakter hosszú szöveget adjon meg.",
+  "lessThan": "Kérjük, a megadott szám legyen nagyobb, mint {{number}}.",
+  "greaterThan": "Kérjük, a megadott szám legyen kisebb, mint {{number}}.",
+  "isAfter": "A megadott dátum nem lehet nagyobb, mint {{date}}.",
+  "isBefore": "A megadott dátum nem lehet kisebb, mint {{date}}.",
+  "passwordMismatch": "A két jelszónak meg kell egyeznie.",
+  "oldPasswordMatch": "Az új jelszó nem egyezhet meg a régivel.",
+  "phoneFormat": "A telefonszámot elválasztók nélkül add meg! pl: +36301234567",
+  "registrationStartErr": "Hiba történt a regisztráció során, próbáld újra később!",
+  "duplicate": {
+    "taxNumber": "Ilyen adószámmal már regisztráltak a rendszerbe.",
+    "email": "Ez az e-mail cím már foglalt.",
+    "companyName": "Ez a vállalkozásnév már foglalt."
+  },
+  "caption": {
+    "subject": {
+      "email": "email címet",
+      "number": "számot",
+      "time": "helyes időpontot",
+      "taxNumber": "érvényes adószámot",
+      "url": "webcím",
+      "phone": "telefonszám"
+    }
+  },
+  "greaterThanEqual": "Az érték legyen nagyobb vagy egyenlő, mint {{number}}.",
+  "lessThanEqual": "Az érték legyen kisebb vagy egyenlő, mint {{number}}.",
+  "maxSize": "A file mérete legyen kisebb vagy egyenlő, mint {{size}} {{unit}}."
+}

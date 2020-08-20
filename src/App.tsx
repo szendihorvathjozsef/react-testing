@@ -1,148 +1,90 @@
 import * as React from "react";
-import { useSnackbar } from "notistack";
-import {
-  useForm,
-  Controller,
-  NestedValue,
-  SubmitHandler,
-} from "react-hook-form";
-import { TextField, Button, MenuItem, Typography } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import DateFnsUtils from "@date-io/date-fns";
+import { Switch, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Container from "@material-ui/core/Container";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import RouterLink from "components/Router/Link";
+import FormRoutes from "features/MultiStageForm";
+import Autocomplete from "features/Autocomplete";
+import supportedLocales, { SupportedLocales } from "supportedLocales";
+import ElevationScroll from "components/ElevationScroll";
 
-type FormValues = {
-  name: string;
-  subject: string;
-  select: string;
-  autocomplete: NestedValue<Option>;
-};
+const useStyles = makeStyles(
+  ({ spacing }: Theme) => ({
+    root: {
+      paddingTop: 80,
+    },
+    paper: {
+      padding: spacing(2),
+    },
+    link: {
+      "&:not(:last-child)": {
+        paddingRight: spacing(2),
+      },
+    },
+  }),
+  { name: "App" }
+);
 
-/* type Props = {
-  api: (id: string) => Promise<string[]>;
-}; */
-
-type Option = {
-  id: number;
-  label: string;
-  value: string;
-};
-
-const OPTIONS: Option[] = [
-  { id: 1, label: "John", value: "john" },
-  { id: 2, label: "Peter", value: "peter" },
-];
-
-function generateReleaseNotes(id: string): Promise<string[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(["hello"]);
-    }, 500);
-  });
-}
-
-function App() {
-  const { enqueueSnackbar } = useSnackbar();
-  const [status, setStatus] = React.useState<string>("idle");
-  const [, setIssueList] = React.useState<string[]>([]);
-  const { handleSubmit, register, errors, control } = useForm<FormValues>();
-
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    setStatus("pending");
-    try {
-      let test = await generateReleaseNotes(values.name);
-      setStatus("success");
-      setIssueList(test);
-    } catch (e) {
-      enqueueSnackbar("releaseNotes.error", {
-        variant: "error",
-      });
-
-      setStatus("failure");
-    }
-  };
+const App = () => {
+  const classes = useStyles();
+  const { i18n } = useTranslation();
+  const language = i18n.language as SupportedLocales;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <TextField
-          id="name"
-          name="name"
-          label="Name"
-          margin="normal"
-          inputRef={register({
-            required: {
-              value: true,
-              message: "Required",
-            },
-          })}
-          error={errors.name && true}
-          helperText={errors.name?.message}
-        />
-      </div>
-      <div>
-        <TextField
-          id="subject"
-          name="subject"
-          label="Subject"
-          margin="normal"
-          inputRef={register({
-            required: {
-              value: true,
-              message: "Required",
-            },
-          })}
-          error={errors.subject && true}
-          helperText={errors.subject?.message}
-        />
-      </div>
-      <div style={{ maxWidth: 225 }}>
-        <Controller
-          as={
-            <TextField
-              id="select"
-              label="Select"
-              margin="normal"
-              fullWidth
-              select
+    <MuiPickersUtilsProvider
+      locale={supportedLocales[language]}
+      utils={DateFnsUtils}
+    >
+      <ElevationScroll>
+        <AppBar position="fixed">
+          <Toolbar>
+            <Link
+              color="secondary"
+              component={RouterLink}
+              to="/"
+              className={classes.link}
             >
-              <MenuItem value="default">None</MenuItem>
-              <MenuItem value="test">Test</MenuItem>
-              <MenuItem value="test2">Test2</MenuItem>
-            </TextField>
-          }
-          name="select"
-          control={control}
-          defaultValue="default"
-        />
-      </div>
-      <div style={{ maxWidth: 225 }}>
-        <Controller
-          render={(props) => (
-            <Autocomplete
-              options={OPTIONS}
-              getOptionSelected={(option, selected) =>
-                option.value === selected.value
-              }
-              openOnFocus
-              value={props.value}
-              onChange={(event, newValue) => props.onChange(newValue)}
-              getOptionLabel={(option: Option) => option.label}
-              renderInput={(params) => (
-                <TextField label="Autocomplete" {...params} />
-              )}
-            />
-          )}
-          name="autocomplete"
-          defaultValue={OPTIONS[0]}
-          control={control}
-        />
-      </div>
-      <Button type="submit">Send</Button>
-      <Typography>
-        {status === "pending" ? "Loading..." : null}
-        {status === "success" ? "Loaded" : null}
-      </Typography>
-    </form>
+              Home
+            </Link>
+            <Link
+              color="secondary"
+              component={RouterLink}
+              to="/form"
+              className={classes.link}
+            >
+              Multi stage
+            </Link>
+            <Link
+              color="secondary"
+              component={RouterLink}
+              to="/autocomplete"
+              className={classes.link}
+            >
+              Autocomplete
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <Container maxWidth="md" className={classes.root}>
+        <Paper className={classes.paper}>
+          <Switch>
+            <Route exact path="/">
+              WOW
+            </Route>
+            <Route path="/form" component={FormRoutes} />
+            <Route path="/autocomplete" component={Autocomplete} />
+          </Switch>
+        </Paper>
+      </Container>
+    </MuiPickersUtilsProvider>
   );
-}
+};
 
 export default App;

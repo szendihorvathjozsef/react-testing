@@ -1,0 +1,15 @@
+{
+  "button": {
+    "submit": "Küldés"
+  },
+  "field": {
+    "lastName": "Keresztnév",
+    "firstName": "Vezetéknév",
+    "gender": "Nem",
+    "zipCode": "Irányítószám",
+    "address": "Cím",
+    "city": "Város",
+    "region": "Megye",
+    "birthday": "Születésnap"
+  }
+}

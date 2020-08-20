@@ -6,8 +6,8 @@ import {
   userEvent,
   waitFor,
   act,
-} from "./utils/test-utils";
-import App from "./App";
+} from "utils/test-utils";
+import Autocomplete from ".";
 
 const SUBJECT = "Test subject";
 const NAME = "John";
@@ -15,13 +15,13 @@ const NAME = "John";
 describe("App component", () => {
   describe("input errors", () => {
     test("all input", async () => {
-      render(<App />);
+      render(<Autocomplete />);
       fireEvent.submit(screen.getByRole("button", { name: /Send/i }));
       expect(await screen.findAllByText("Required")).toHaveLength(2);
     });
 
     test("name input", async () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       let input = await screen.findByLabelText("Name");
 
@@ -34,7 +34,7 @@ describe("App component", () => {
     });
 
     test("subject input", async () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       let input = await screen.findByLabelText("Subject");
 
@@ -47,7 +47,7 @@ describe("App component", () => {
     });
 
     test("no error", async () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       let name = screen.getByLabelText("Name");
       let subject = screen.getByLabelText("Subject");
@@ -69,7 +69,7 @@ describe("App component", () => {
 
   describe("Select", () => {
     it("options value", async () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       const select = screen.getByRole("button", { name: /Select None/i });
 
@@ -88,7 +88,7 @@ describe("App component", () => {
     });
 
     it("click on option", async () => {
-      const { container } = render(<App />);
+      const { container } = render(<Autocomplete />);
 
       const select = screen.getByRole("button", { name: /Select None/i });
 
@@ -109,7 +109,7 @@ describe("App component", () => {
 
   describe("Autocomplete", () => {
     it("open list", () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       const textbox = screen.getByRole("textbox", { name: /Autocomplete/i });
 
@@ -125,7 +125,7 @@ describe("App component", () => {
     });
 
     it("select second item", () => {
-      render(<App />);
+      render(<Autocomplete />);
 
       const textbox = screen.getByRole("textbox", { name: /Autocomplete/i });
 

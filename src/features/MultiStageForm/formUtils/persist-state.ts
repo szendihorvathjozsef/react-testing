@@ -64,8 +64,12 @@ function saveState<K extends keyof FormState>(name: K, value: FormState[K]) {
   storagetype.setItem(storageName, JSON.stringify(getStore()));
 }
 
-function getGlobalState() {
+function getGlobalStore() {
   return getStore();
+}
+
+function resetStore() {
+  storagetype.removeItem(storageName);
 }
 
 export {
@@ -73,5 +77,6 @@ export {
   DEFAULT_STORAGE_TYPE,
   createBrowserStorage,
   saveState,
-  getGlobalState,
+  getGlobalStore,
+  resetStore,
 };

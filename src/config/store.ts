@@ -7,7 +7,7 @@ import {
 } from "@reduxjs/toolkit";
 import {
   createBrowserStorage,
-  getGlobalState,
+  getGlobalStore,
 } from "features/MultiStageForm/formUtils/persist-state";
 
 createBrowserStorage();
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: {
-    form: getGlobalState(),
+    form: getGlobalStore(),
   },
 });
 

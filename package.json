@@ -23,6 +23,7 @@
     "i18next": "^19.5.4",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-xhr-backend": "^3.2.2",
+    "imask": "^6.0.5",
     "lodash": "^4.17.20",
     "mutationobserver-shim": "^0.3.7",
     "notistack": "^0.9.17",

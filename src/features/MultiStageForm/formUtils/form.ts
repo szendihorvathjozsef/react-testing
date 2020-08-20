@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "config/store";
-import { saveState } from "./persist-state";
+import { saveState, resetStore } from "./persist-state";
 import { FormState, FirstStage, SecondStage } from "./form-types";
 
 const initialState: FormState = {
@@ -20,6 +20,10 @@ const form = createSlice({
     saveSecond(state, action: PayloadAction<SecondStage>) {
       state.second = action.payload;
       saveState("second", action.payload);
+    },
+    resetState(state) {
+      state = {} as FormState;
+      resetStore();
     },
   },
 });

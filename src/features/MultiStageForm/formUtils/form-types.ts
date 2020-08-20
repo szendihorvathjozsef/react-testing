@@ -8,6 +8,7 @@ export type FirstStage = {
   firstName: string | null;
   gender: string;
   birthday: Date | string;
+  phoneNumber: string;
 };
 
 export type SecondStage = {

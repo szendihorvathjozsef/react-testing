@@ -14,6 +14,8 @@ import FormRoutes from "features/MultiStageForm";
 import Autocomplete from "features/Autocomplete";
 import supportedLocales, { SupportedLocales } from "supportedLocales";
 import ElevationScroll from "components/ElevationScroll";
+import InfiniteScroll from "features/InfinitieScroll";
+import UserProfile from "features/InfinitieScroll/UserProfile";
 
 const useStyles = makeStyles(
   ({ spacing }: Theme) => ({
@@ -69,6 +71,14 @@ const App = () => {
             >
               Autocomplete
             </Link>
+            <Link
+              color="secondary"
+              component={RouterLink}
+              to="/infinite-scroll"
+              className={classes.link}
+            >
+              Infinite scroll
+            </Link>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
@@ -80,6 +90,8 @@ const App = () => {
             </Route>
             <Route path="/form" component={FormRoutes} />
             <Route path="/autocomplete" component={Autocomplete} />
+            <Route path="/infinite-scroll/profile" component={UserProfile} />
+            <Route exact path="/infinite-scroll" component={InfiniteScroll} />
           </Switch>
         </Paper>
       </Container>
